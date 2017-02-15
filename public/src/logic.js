@@ -108,7 +108,7 @@ export default class Logic {
 			this.wrapper.lastInput = userInput;
 		} else {
 			this.wrapper.lastInput = '';
-			this.wrapper.message = messages.INVALID_IMPUT;
+			this.wrapper.message = messages.INVALID_INPUT;
 		}
 
 		return this.wrapper;

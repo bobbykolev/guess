@@ -72,7 +72,7 @@ export default class Render {
 	shakeIfInvalid(data) {
 		let that = this;
 
-		if (data.message === messages.INVALID_IMPUT || data.message === messages.SUBMITTED) {
+		if (data.message === messages.INVALID_INPUT || data.message === messages.SUBMITTED) {
 			this.chartContainerEl.classList.add('shake');
 
 			this.shakeTO && global.clearTimeout(this.shakeTo);
