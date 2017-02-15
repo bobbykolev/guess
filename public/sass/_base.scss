@@ -1,0 +1,250 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+body {
+    color: $grey;
+    background: url("../img/bg.png") repeat;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+
+    @include scroll($main);
+
+    &.animated {
+        animation: move 16s linear infinite;
+    }
+}
+
+#wrapper {
+    padding: 5px;
+}
+
+h1 {
+    font-size: 20px;
+}
+
+button {
+    background-image: none;
+    border: none;
+    background: $main;
+    border-radius: 2px;
+    color: white;
+    min-width: 180px;
+    cursor: pointer;
+    font-weight: bold;
+
+    &:disabled {
+        background: lighten($grey, 30%);
+        cursor: default;
+    }
+}
+
+input, button {
+    height: 38px;
+}
+
+section {
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
+}
+
+article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    > div {
+        width: 100%;
+        margin: 20px 0;
+
+        &:first-child {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
+
+footer {
+    max-width: 700px;
+    margin: 50px auto 20px;
+    padding: 20px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.chart {
+    position: relative;
+    overflow: hidden;
+
+    &.shake {
+        animation: shake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+    }
+
+    > div {
+        &:first-child {
+            position: absolute;
+            height: 42px;
+            width: 20px;
+            background: rgba(255, 255, 255, 0.6);
+            top: -2px;
+            left: 0;
+            transition: left 0.5s ease;
+        }
+
+        &:nth-child(2) {
+            position: absolute;
+            height: 38px;
+            width: 2px;
+            background: #ad0000;
+            top: 0;
+            left: calc(50% - 1px);
+        }
+
+        &:last-child {
+            height: 38px;
+            width: 100%;
+
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#0060fc+0,ff1418+50,0060fc+100 */
+            background: rgb(0, 96, 252);
+
+            /* Old browsers */
+            background: -moz-linear-gradient(left, rgba(0, 96, 252, 1) 0%, rgba(255, 20, 24, 1) 50%, rgba(0, 96, 252, 1) 100%);
+
+            /* FF3.6-15 */
+            background: -webkit-linear-gradient(left, rgba(0, 96, 252, 1) 0%, rgba(255, 20, 24, 1) 50%, rgba(0, 96, 252, 1) 100%);
+
+            /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to right, rgba(0, 96, 252, 1) 0%, rgba(255, 20, 24, 1) 50%, rgba(0, 96, 252, 1) 100%);
+
+            /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        }
+    }
+}
+
+.message-box {
+    position: relative;
+    min-height: 58px;
+    max-height: 200px;
+    overflow-y: auto;
+    text-align: left;
+
+    @extend %card;
+
+    li {
+        padding: 2px 0;
+    }
+
+    @include scroll($darkBlue);
+}
+
+.stats {
+    @extend %card;
+
+    ul {
+        display: flex;
+        text-align: left;
+
+        li {
+            flex: 1;
+        }
+    }
+}
+
+#win2 {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    z-index: -1;
+
+    > div {
+        margin: 10px;
+        font-size: 20px;
+    }
+
+    &.active {
+        display: flex;
+        z-index: 2;
+    }
+}
+
+#win {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    background: $main;
+    border-radius: 50%;
+    transition: all 0.4s ease-in;
+    z-index: 1;
+
+    &.active {
+        background: rgba($red, 0.95);
+        width: 10000px;
+        height: 10000px;
+        right: -5000px;
+        bottom: -5000px;
+        transition: all 1s ease;
+    }
+}
+
+@keyframes shake {
+    10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%, 80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%, 60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+@keyframes move {
+    0 {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0 100%;
+    }
+}

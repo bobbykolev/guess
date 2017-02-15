@@ -1,0 +1,19 @@
+@media screen and (max-width: 640px) {
+    article {
+        > div {
+            &:first-child {
+                display: block;
+
+                button {
+                    margin: 10px 0;
+                }
+            }
+        }
+    }
+
+    .stats {
+        ul {
+            flex-direction: column;
+        }
+    }
+}
