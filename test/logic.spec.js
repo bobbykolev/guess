@@ -2,7 +2,7 @@ import Logic from '../public/src/logic.js';
 import * as messages from '../public/src/messages.js';
 
 describe('Test Game Logic', () => {
-  it('should generate nuber between 1 and 101', () => {
+  it('should generate number between 1 and 101', () => {
   	let result, appLogic = new Logic();
 
   	result = appLogic.checkResult(1);
@@ -12,13 +12,16 @@ describe('Test Game Logic', () => {
   });
 
   it('should retrn error for invalid input', () => {
-  	let result, appLogic = new Logic();
+  	let result, appLogic = new Logic(), invalidInput = [105, -1, "sdf"];
 
-  	result = appLogic.checkResult(105);
-  	expect(result.message.indexOf('Invalid') > -1).toBeTruthy();
+    for (var i = 0; i < invalidInput.length; i++) {
+      result = appLogic.checkResult(invalidInput[i]);
+      expect(result.message.indexOf('Invalid') > -1).toBeTruthy();
+    }
 
-  	result = appLogic.checkResult(-1);
-  	expect(result.message.indexOf('Invalid') > -1).toBeTruthy();
+    result = appLogic.checkResult(5);
+    result = appLogic.checkResult(result.number + 0.1);
+    expect(result.message.indexOf('Invalid') > -1).toBeTruthy();
   });
 
   it('should retrn relatively correct percentage', () => {
@@ -73,16 +76,16 @@ describe('Test Game Logic', () => {
   	expect(result.score).toEqual(null);
   });
 
-  it('should lose on more than 3 colder gueses', () => {
+  it('should lose on more than 3 colder guesses', () => {
   	let result, appLogic = new Logic();
 
   	result = appLogic.checkResult(0);
 
   	for (let i = 0; i < 4; i++) {
-  		if (result.number < 5) {
-  			result = appLogic.checkResult(result.number - i+1);
+  		if (result.number < 6) {
+  			result = appLogic.checkResult(result.number + i+1);
 	  	} else {
-	  		result = appLogic.checkResult(result.number + i+1);
+	  		result = appLogic.checkResult(result.number - (i+1));
 	  	}	
 	}
 
@@ -95,9 +98,29 @@ describe('Test Game Logic', () => {
   	let result, appLogic = new Logic();
 
   	result = appLogic.checkResult(0);
-  	result = appLogic.checkResult(result.number + 1);
-  	result = appLogic.checkResult(result.number + 1);
+    if (result.number > 99) {
+      result = appLogic.checkResult(result.number - 1);
+      result = appLogic.checkResult(result.number - 1);
+    } else {
+      result = appLogic.checkResult(result.number + 1);
+      result = appLogic.checkResult(result.number + 1);
+    }
 
   	expect(result.message).toEqual(messages.SUBMITTED);
   });
+
+  it('should return Try Again message if guess is wrong', () => {
+    let result, appLogic = new Logic();
+
+    result = appLogic.checkResult(0);
+
+    if (result.number > 1) {
+        result = appLogic.checkResult(result.number - 1);
+    } else {
+        result = appLogic.checkResult(result.number + 1);
+    }
+
+    expect(result.message).toEqual(messages.TRY_AGAIN);
+  });
+
 });

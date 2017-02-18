@@ -31,7 +31,9 @@ export default class Logic {
 	}
 
 	validateInput (userInput) {
-		return Number.isInteger(userInput) && userInput > 0 && userInput < 102;
+		let input = +userInput;
+
+		return Number.isInteger(input) && input > 0 && input < 102;
 	}
 
 	isAlreadySubmitted (input) {

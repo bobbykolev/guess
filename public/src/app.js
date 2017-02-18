@@ -99,7 +99,7 @@ export default function appStart() {
 				e && e.preventDefault();
 
 				if (appLogic) {
-					result = appLogic.checkResult(parseInt(elements.input.value));
+					result = appLogic.checkResult(elements.input.value);
 
 					if (result.isOver) {
 						elements.submitBtn.disabled = true;
