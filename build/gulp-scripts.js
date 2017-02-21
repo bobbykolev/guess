@@ -5,6 +5,7 @@ let $ = require('gulp-load-plugins')();
 
 let browserify = require('browserify');
 let babelify = require('babelify');
+let rollupify = require('rollupify');
 
 let source = require('vinyl-source-stream');
 let buffer = require('vinyl-buffer');
@@ -12,10 +13,15 @@ let buffer = require('vinyl-buffer');
 let src = require('./sources');
 
 gulp.task('scripts', function() {
+  /*let b = browserify({
+    entries: [src.scripts.main],
+    debug: true
+  }).transform(babelify);*/
+
   let b = browserify({
     entries: [src.scripts.main],
     debug: true
-  }).transform(babelify);
+  }).transform(rollupify);
 
   return b
     .bundle()
